@@ -1,0 +1,23 @@
+services:
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - "8082:8082"
+        environment:
+            SPRING_PROFILE:
+            SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/mydatabase
+            SPRING_DATASOURCE_USERNAME: user
+            SPRING_DATASOURCE_PASSWORD: password
+        depends_on:
+            - postgres
+
+    postgres:
+        image: postgres:13
+        environment:
+            POSTGRES_USER: user
+            POSTGRES_PASSWORD: password
+            POSTGRES_DB: mydatabase
+        ports:
+            - "5432:5432"
